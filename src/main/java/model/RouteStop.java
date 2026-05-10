@@ -67,4 +67,9 @@ public class RouteStop {
     public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
+
+    @Override
+    public String toString() {
+        return "RouteStop{" + "id=" + id + ", routeId=" + routeId + ", stationId=" + stationId + ", stopOrder=" + stopOrder + ", arrivalTime=" + arrivalTime + ", departureTime=" + departureTime + '}';
+    }
 }

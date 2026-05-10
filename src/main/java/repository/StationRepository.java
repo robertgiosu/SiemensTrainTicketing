@@ -1,44 +1,41 @@
 package repository;
 
-import model.Train;
+import repository.DatabaseManager;
+import model.Station;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainRepository {
+public class StationRepository {
     private final DatabaseManager dbManager;
 
-    public TrainRepository(DatabaseManager dbManager) {
+    public StationRepository(DatabaseManager dbManager) {
         this.dbManager = dbManager;
     }
 
-    public void save(Train train) {
+    public void save(Station station) {
 
         String sql = """
-                INSERT INTO trains(train_code, capacity)
-                VALUES(?, ?)
+                INSERT INTO stations(name)
+                VALUES(?)
                 """;
 
         try (Connection connection = dbManager.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(sql)) {
-
-            statement.setString(1, train.getTrainCode());
-            statement.setInt(2, train.getCapacity());
-
+            statement.setString(1, station.getName());
             statement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Train> findAll() {
+    public List<Station> findAll() {
 
-        List<Train> trains = new ArrayList<>();
+        List<Station> stations = new ArrayList<>();
 
-        String sql = "SELECT * FROM trains";
+        String sql = "SELECT * FROM stations";
 
         try (Connection connection = dbManager.getConnection();
              Statement statement = connection.createStatement();
@@ -46,26 +43,25 @@ public class TrainRepository {
 
             while (resultSet.next()) {
 
-                Train train = new Train();
+                Station station = new Station();
 
-                train.setId(resultSet.getInt("id"));
-                train.setTrainCode(resultSet.getString("train_code"));
-                train.setCapacity(resultSet.getInt("capacity"));
+                station.setId(resultSet.getInt("id"));
+                station.setName(resultSet.getString("name"));
 
-                trains.add(train);
+                stations.add(station);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return trains;
+        return stations;
     }
 
-    public Train findById(Integer id) {
+    public Station findById(Integer id) {
 
         String sql = """
-                SELECT * FROM trains
+                SELECT * FROM stations
                 WHERE id = ?
                 """;
 
@@ -79,13 +75,12 @@ public class TrainRepository {
 
             if (resultSet.next()) {
 
-                Train train = new Train();
+                Station station = new Station();
 
-                train.setId(resultSet.getInt("id"));
-                train.setTrainCode(resultSet.getString("train_code"));
-                train.setCapacity(resultSet.getInt("capacity"));
+                station.setId(resultSet.getInt("id"));
+                station.setName(resultSet.getString("name"));
 
-                return train;
+                return station;
             }
 
         } catch (SQLException e) {
@@ -95,11 +90,11 @@ public class TrainRepository {
         return null;
     }
 
-    public void update(Train train) {
+    public void update(Station station) {
 
         String sql = """
-                UPDATE trains
-                SET train_code = ?, capacity = ?
+                UPDATE stations
+                SET name = ?
                 WHERE id = ?
                 """;
 
@@ -107,9 +102,8 @@ public class TrainRepository {
              PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
-            statement.setString(1, train.getTrainCode());
-            statement.setInt(2, train.getCapacity());
-            statement.setInt(3, train.getId());
+            statement.setString(1, station.getName());
+            statement.setInt(2, station.getId());
 
             statement.executeUpdate();
 
@@ -121,7 +115,7 @@ public class TrainRepository {
     public void delete(Integer id) {
 
         String sql = """
-                DELETE FROM trains
+                DELETE FROM stations
                 WHERE id = ?
                 """;
 

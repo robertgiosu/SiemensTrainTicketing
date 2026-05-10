@@ -41,4 +41,9 @@ public class Train {
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
+
+    @Override
+    public String toString() {
+        return "Train{" + "id=" + id + ", trainCode=" + trainCode + ", capacity=" + capacity + '}';
+    }
 }

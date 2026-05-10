@@ -30,4 +30,9 @@ public class Route {
     public void setTrainId(Integer trainId) {
         this.trainId = trainId;
     }
+
+    @Override
+    public String toString() {
+        return "Route{" + "id=" + id + ", trainId=" + trainId + '}';
+    }
 }

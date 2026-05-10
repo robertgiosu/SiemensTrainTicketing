@@ -28,10 +28,6 @@ public class Booking {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getCustomerName() {
         return customerName;
     }
@@ -58,5 +54,42 @@ public class Booking {
 
     public LocalDateTime getBookingTime() {
         return bookingTime;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public void setRouteId(Integer routeId) {
+        this.routeId = routeId;
+    }
+
+    public void setFromStationId(Integer fromStationId) {
+        this.fromStationId = fromStationId;
+    }
+
+    public void setToStationId(Integer toStationId) {
+        this.toStationId = toStationId;
+    }
+
+    public void setSeatsBooked(Integer seatsBooked) {
+        this.seatsBooked = seatsBooked;
+    }
+
+    public void setBookingTime(LocalDateTime bookingTime) {
+        this.bookingTime = bookingTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking [id=" + id + ", customerName=" + customerName + ", customerEmail=" + customerEmail + ", routeId=" + routeId + ", fromStationId=" + fromStationId + ", toStationId=" + toStationId + ", seatsBooked=" + seatsBooked + ", bookingTime=" + bookingTime + "]";
     }
 }
